@@ -27,7 +27,7 @@ function About() {
         <div className="text-xs tracking-[0.4em] text-accent mb-6">— THE ACADEMY</div>
         <motion.h1
           initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
-          className="font-display text-6xl md:text-9xl leading-[0.9]"
+          className="font-display text-5xl md:text-9xl leading-[0.9]"
         >
           PERFORMANCE<br />IS A <span className="text-energy">DISCIPLINE.</span>
         </motion.h1>

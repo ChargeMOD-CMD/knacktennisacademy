@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export function Nav() {
+export function Nav({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => void }) {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
+    onScroll(); // Check on mount
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -24,11 +24,11 @@ export function Nav() {
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-        scrolled || mobileMenuOpen ? "py-3 backdrop-blur-xl bg-background/70 border-b border-border" : "py-6"
+        scrolled || open ? "py-3 backdrop-blur-xl bg-background/70 border-b border-border" : "py-6"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 group z-50" onClick={() => setMobileMenuOpen(false)}>
+        <Link to="/" className="flex items-center gap-2 group z-50" onClick={() => setOpen(false)}>
           <div className="relative w-9 h-9 shrink-0">
             <div className="absolute inset-0 rounded-full bg-accent pulse-glow" />
             <div className="absolute inset-0 rounded-full border-2 border-background"
@@ -60,17 +60,17 @@ export function Nav() {
           {/* Mobile Menu Toggle */}
           <button 
             className="md:hidden z-50 p-2 text-foreground"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
           >
-            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            {open ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
       </div>
 
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
-        {mobileMenuOpen && (
+        {open && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -91,7 +91,7 @@ export function Nav() {
                     className="hover:text-accent transition-colors"
                     activeProps={{ className: "text-accent" }}
                     activeOptions={{ exact: true }}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={() => setOpen(false)}
                   >
                     {l.label}
                   </Link>
@@ -106,7 +106,7 @@ export function Nav() {
                 <Link 
                   to="/contact" 
                   className="btn-hero !py-3 !px-8 !text-lg"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => setOpen(false)}
                 >
                   JOIN ACADEMY
                 </Link>

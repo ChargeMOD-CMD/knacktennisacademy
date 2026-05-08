@@ -44,13 +44,13 @@ function Contact() {
               className="space-y-5"
             >
               {[
-                { l: "Full Name", t: "text", n: "name" },
-                { l: "Phone", t: "tel", n: "phone" },
-                { l: "Email", t: "email", n: "email" },
+                { l: "Full Name", t: "text", n: "name", p: "[A-Za-z\\s]{2,50}", title: "Name should be 2-50 characters" },
+                { l: "Phone", t: "tel", n: "phone", p: "[0-9]{10,15}", title: "Please enter a valid phone number (10-15 digits)" },
+                { l: "Email", t: "email", n: "email", p: undefined, title: undefined },
               ].map((f) => (
                 <div key={f.n}>
                   <label className="text-xs tracking-widest text-muted-foreground">{f.l.toUpperCase()}</label>
-                  <input required type={f.t} name={f.n}
+                  <input required type={f.t} name={f.n} pattern={f.p} title={f.title}
                     className="w-full mt-2 bg-transparent border-b border-border focus:border-accent outline-none py-3 text-lg transition-colors" />
                 </div>
               ))}

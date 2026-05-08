@@ -36,20 +36,24 @@ function Counter({ to, suffix }: { to: number; suffix: string }) {
   const [v, setV] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   useEffect(() => {
+    let frame: number;
     const obs = new IntersectionObserver(([e]) => {
       if (e.isIntersecting) {
         const start = performance.now();
         const tick = (t: number) => {
           const p = Math.min((t - start) / 1500, 1);
           setV(Math.floor(p * to));
-          if (p < 1) requestAnimationFrame(tick);
+          if (p < 1) frame = requestAnimationFrame(tick);
         };
-        requestAnimationFrame(tick);
+        frame = requestAnimationFrame(tick);
         obs.disconnect();
       }
     });
     if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
+    return () => {
+      obs.disconnect();
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, [to]);
   return <span ref={ref}>{v}{suffix}</span>;
 }
@@ -174,7 +178,7 @@ function Home() {
                 viewport={{ once: true }} transition={{ delay: i * 0.06 }}
                 whileHover={{ y: -8 }}
                 data-cursor-hover
-                className="group relative p-8 rounded-2xl glass overflow-hidden cursor-none"
+                className="group relative p-8 rounded-2xl glass overflow-hidden"
               >
                 <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-accent/10 blur-3xl group-hover:bg-accent/30 transition-all duration-700" />
                 <div className="relative">
