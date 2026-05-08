@@ -23,13 +23,23 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Build
         run: npm run build
+        env:
+          VITE_BASE_PATH: /knacktennisacademy/
 
-      - name: Verify Build
-        run: ls -R dist
+      - name: Verify Build Output
+        run: |
+          if [ -f dist/index.html ]; then
+            echo "Build successful, index.html found."
+            ls -R dist
+          else
+            echo "Build failed, index.html NOT found."
+            ls -R dist
+            exit 1
+          fi
 
       - name: Post-build (Fix SPA routing)
         run: |
