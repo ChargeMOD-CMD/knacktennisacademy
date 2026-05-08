@@ -113,7 +113,7 @@ function Home() {
 
       {/* STATS */}
       <section className="py-24 border-y border-border bg-card/30">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           {STATS.map((s) => (
             <div key={s.label} className="text-center">
               <div className="font-display text-5xl md:text-7xl text-energy">
