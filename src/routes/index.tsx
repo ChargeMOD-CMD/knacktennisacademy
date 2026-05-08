@@ -90,8 +90,8 @@ function Home() {
             POWER. <span className="text-energy">PERFORMANCE.</span>
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.6 }}
-            className="mt-8 text-muted-foreground max-w-xl mx-auto text-lg"
+            initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.6 }}
+            className="mt-8 text-foreground/80 max-w-2xl mx-auto text-lg md:text-xl leading-relaxed text-balance"
           >
             An elite tennis academy where modern sports science meets championship coaching.
           </motion.p>
