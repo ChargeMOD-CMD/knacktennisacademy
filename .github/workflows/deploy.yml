@@ -30,7 +30,7 @@ jobs:
 
       - name: Post-build (Fix SPA routing)
         run: |
-          cp dist/client/index.html dist/client/404.html
+          cp dist/index.html dist/404.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -38,7 +38,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist/client'
+          path: './dist'
 
   deploy:
     needs: build
