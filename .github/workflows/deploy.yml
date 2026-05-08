@@ -28,6 +28,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Verify Build
+        run: ls -R dist
+
       - name: Post-build (Fix SPA routing)
         run: |
           cp dist/index.html dist/404.html
